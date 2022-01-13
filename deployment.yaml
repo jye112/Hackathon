@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iantest 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iantest-pod
+  template:
+    metadata:
+      labels:
+        app: iantest-pod
+    spec:
+      containers:
+        - name: iantest 
+          image: jyedevopssprintacr.azurecr.io/sprintseries:v1
+          ports:
+          - containerPort: 80
+          env:
+          - name: APP_ENVIRONMENT
+            value: "development"
