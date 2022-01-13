@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iantest 
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: iantest-pod
+  template:
+    metadata:
+      labels:
+        app: iantest-pod
+    spec:
+      containers:
+        - name: iantest 
+          image: devopssprint.azurecr.io/sprintseries:v1
+          ports:
+          - containerPort: 80
+          env:
+          - name: APP_ENVIRONMENT
+            value: "development"
+          readinessProbe:
+            httpGet:
+              path: /index.php
+              port: 80
+            timeoutSeconds: 30
+            successThreshold: 2
